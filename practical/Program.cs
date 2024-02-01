@@ -19,7 +19,7 @@ public class Fruit
 
     public virtual void Input()
     {
-        // Read data from the console
+
         Console.WriteLine("Enter fruit name:");
         Name = Console.ReadLine();
         Console.WriteLine("Enter fruit color:");
@@ -31,14 +31,14 @@ public class Fruit
         Color = streamReader.ReadLine();
     }
 
-    // Overloaded Print method to write to a stream
+
     public virtual void Print(StreamWriter streamWriter)
     {
         streamWriter.WriteLine($"Fruit: {Name}, Color: {Color}");
     }
     public virtual void Print()
     {
-        // Output data to the console
+
         Console.WriteLine($"Fruit: {Name}, Color: {Color}");
     }
 
@@ -77,7 +77,7 @@ public class Citrus : Fruit
         }
     }
 
-    // Overload the Print method for Citrus to also write the Vitamin C content to a stream
+
     public override void Print(StreamWriter streamWriter)
     {
         base.Print(streamWriter);
@@ -103,13 +103,13 @@ class Program
             new Fruit("Grapes", "Purple")
         };
 
-        // Print data about 'yellow' fruits
+
         fruits.Where(fruit => fruit.Color == "Yellow").ToList().ForEach(fruit => fruit.Print());
 
-        // Sort the list of fruits by name
+
         fruits.Sort((fruit1, fruit2) => fruit1.Name.CompareTo(fruit2.Name));
 
-        // Output the sorted list to a file
+
         try
         {
             using (var writer = new StreamWriter("sorted_fruits.txt"))
@@ -122,20 +122,18 @@ class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
 
-        // Serialize the list to JSON
+ 
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(fruits, options);
         File.WriteAllText("fruits.json", jsonString);
 
-        // Deserialize the list from JSON
+ 
         var deserializedFruits = JsonSerializer.Deserialize<List<Fruit>>(jsonString, options);
 
-        // Add unit tests for class methods
-        // This would be done in a separate testing framework like xUnit or NUnit
+
 
         var fruits1 = new List<Fruit>();
 
-        // Read fruits from a file
         try
         {
             using (var reader = new StreamReader("fruits_input.txt"))
@@ -143,8 +141,6 @@ class Program
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    // Parse the line and create either a Fruit or Citrus object
-                    // For the purpose of this example, let's assume we are creating a Fruit object
                     var parts = line.Split(',');
                     var fruit = new Fruit(parts[0], parts[1]);
                     fruits1.Add(fruit);
@@ -156,7 +152,7 @@ class Program
             Console.WriteLine($"An error occurred while reading from the file: {ex.Message}");
         }
 
-        // Print fruits to a file
+
         try
         {
             using (var writer = new StreamWriter("fruits_output.txt"))
